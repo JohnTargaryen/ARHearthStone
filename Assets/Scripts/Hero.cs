@@ -130,6 +130,10 @@ public class Hero {
             this.HP = 0;
             return true;
         }
+
+        //更新英雄信息UI
+        God god = God.getInstance();
+        god.UI.set_hero_info(this.GetHp(), this.GetDamage(), this);
         return false;
     }
 }

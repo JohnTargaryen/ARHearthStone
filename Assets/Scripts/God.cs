@@ -17,6 +17,7 @@ public class God : MonoBehaviour {
     public Player currentoponent;
     public PosContainer redposcontainer;
     public PosContainer yellowposcontainer;
+    public UserInterface UI;
 
     // 回合计数器
     public int roundCount;
@@ -59,7 +60,14 @@ public class God : MonoBehaviour {
         targetSelectedState = new TargetSelectedState();
         cardCastedState = new CardCastedState();
         gameOverState = new GameOverState();
-        
+
+        //UI实例
+        UI = GameObject.Find("Canvas").GetComponent<UserInterface>();
+        UI.next_round.onClick.AddListener(delegate ()
+        {
+            ExchangeRound();
+        });
+
         // 设置初始状态
         currentState = prepareState;
         isFree = true;
@@ -86,6 +94,14 @@ public class God : MonoBehaviour {
         playeryellow = yellow.GetComponent<Player>();
         yellowposcontainer = yellow.GetComponent<PosContainer>();
         playeryellow.setPlayerObject(yellow);
+
+        //UI设置
+        UI.set_player_HP(playerred.HP, playerred);
+        UI.set_player_MP(playerred.MP, playerred);
+        UI.set_player_Cardnum(playerred.CardsInHand.Count, playerred);
+        UI.set_player_HP(playeryellow.HP, playeryellow);
+        UI.set_player_MP(playeryellow.MP, playeryellow);
+        UI.set_player_Cardnum(playeryellow.CardsInHand.Count, playeryellow);
 
         // 开局选边扩展点
         Debug.Log("黄色方先手");
@@ -114,6 +130,7 @@ public class God : MonoBehaviour {
         currentplayer.Shuffle();
         currentoponent.Shuffle();
         currentplayer.DrawCard();
+
     }
 
     public bool ExchangeRound()
@@ -136,6 +153,7 @@ public class God : MonoBehaviour {
             Debug.Log("第" + roundCount + "回合开始");
         }
         currentplayer.DrawCard();
+
         ClearSelect();
         return true;
     }

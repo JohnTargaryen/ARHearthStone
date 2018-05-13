@@ -162,6 +162,9 @@ public class Player : MonoBehaviour {
         CardsInHand.RemoveAt(CardsInHand.Count - 1);
         RefreshCardPos();
 
+        //更新手卡UI
+        God god = God.getInstance();
+        god.UI.set_player_Cardnum(this.CardsInHand.Count, this);
     }
 
     void RefreshCardPos()
@@ -186,6 +189,10 @@ public class Player : MonoBehaviour {
         HeroesOnCourt.Add(hero);
         SummonedHero.name = "SummonedHero1";
         SummonedHero.tag = "Hero";
+
+        //设置英雄信息UI
+        God god = God.getInstance();
+        god.UI.create_hero_info(hero.GetHp(), hero.GetDamage(), hero);
     }
 
 
@@ -199,6 +206,10 @@ public class Player : MonoBehaviour {
         this.HP += hp;
         if (this.HP < 0) this.HP = 0;
         if (this.HP > MaxHP) this.HP = MaxHP;
+
+        //UI更新HP
+        God god = God.getInstance();
+        god.UI.set_player_HP(this.HP, this);
         return true;
     }
 
@@ -212,6 +223,10 @@ public class Player : MonoBehaviour {
         this.MP += mp;
         if (this.MP < 0) this.MP = 0;
         if (this.MP > MaxMP) this.MP = MaxMP;
+
+        //UI更新MP
+        God god = God.getInstance();
+        god.UI.set_player_MP(this.MP, this);
         return true; 
     }
 
@@ -238,11 +253,16 @@ public class Player : MonoBehaviour {
             CardStack.Pop();
             CardsInHand.Add(CardToDraw);
 
-            GameObject card = GameObject.Instantiate(CardToDraw.Value.CardModel, poscontainer.CardsPos[CardsInHand.Count], Quaternion.identity);
+            //创建手牌时使手牌面向镜头
+            GameObject card = GameObject.Instantiate(CardToDraw.Value.CardModel, poscontainer.CardsPos[CardsInHand.Count], Quaternion.Euler(90,180,0));
             CardsInHand_Obejct.Add(card);
             card.name = "HeroCard" + CardsInHand.Count.ToString();
             card.tag = "Card";
         }
+
+        //更新手卡UI
+        God god = God.getInstance();
+        god.UI.set_player_Cardnum(this.CardsInHand.Count, this);
     }
 
     /// <summary>
@@ -376,6 +396,10 @@ public class Player : MonoBehaviour {
                 HeroesOnCourt_Object.RemoveAt(index);
                 // 移除Hero
                 HeroesOnCourt.RemoveAt(index);
+
+                //移除信息UI
+                God god = God.getInstance();
+                god.UI.destroy_hero_info(hero);
                 break;
             }
         }

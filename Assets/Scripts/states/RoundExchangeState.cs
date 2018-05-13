@@ -20,6 +20,7 @@ namespace Assets.Scripts.states
             god.currentplayer.updateMaxMP();
             // 攻击次数填充
             god.currentplayer.updateAttackCount();
+
         }
 
         public void update(God god)
