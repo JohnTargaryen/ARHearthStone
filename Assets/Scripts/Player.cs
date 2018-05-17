@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+
     const int num_of_cards = 19; // 设定卡组中的卡牌总数
+
     PosContainer poscontainer;
     public Hero SelectedHero1 = null;
     public Hero SelectedHero2 = null;
@@ -92,6 +94,7 @@ public class Player : MonoBehaviour {
     }
 
 
+
     /// <summary>
     /// 洗牌：对局开始时由God为对阵双方洗牌（初始化双方的牌库）
     /// </summary>
@@ -112,10 +115,6 @@ public class Player : MonoBehaviour {
 
         Card FirstCard = new Card(CardsManager.GetInstance().CardsInGame[c[0]]);
 
-        int times = 100;
-        while (times-- >= 0)
-            CardStack.Push(new KeyValuePair<int, Card>(100 - times, FirstCard));
-
         for (int i = 1; i < num_of_cards; i++)
         {
             Card TempCard = new Card(CardsManager.GetInstance().CardsInGame[c[i]]); // 重排数组后，顺序填充卡牌就可以了
@@ -123,7 +122,6 @@ public class Player : MonoBehaviour {
             while (times-- >= 0)
                 CardStack.Push(new KeyValuePair<int, Card>(100 - times, TempCard));
         }
-
 
 
     }
@@ -188,6 +186,9 @@ public class Player : MonoBehaviour {
         CardsInHand.RemoveAt(CardsInHand.Count - 1);
         RefreshCardPos();
 
+        //更新手卡UI
+        God god = God.getInstance();
+        god.UI.set_player_Cardnum(this.CardsInHand.Count, this);
     }
 
     void RefreshCardPos()
@@ -212,7 +213,13 @@ public class Player : MonoBehaviour {
         HeroesOnCourt.Add(hero);
         SummonedHero.name = "SummonedHero1";
         SummonedHero.tag = "Hero";
+
+
+        //设置英雄信息UI
+        God god = God.getInstance();
+        god.UI.create_hero_info(hero.GetHp(), hero.GetDamage(), hero);
     }
+
 
 
     /// <summary>
@@ -225,6 +232,12 @@ public class Player : MonoBehaviour {
         this.HP += hp;
         if (this.HP < 0) this.HP = 0;
         if (this.HP > MaxHP) this.HP = MaxHP;
+
+
+        //UI更新HP
+        God god = God.getInstance();
+        god.UI.set_player_HP(this.HP, this);
+
         return true;
     }
 
@@ -238,6 +251,11 @@ public class Player : MonoBehaviour {
         this.MP += mp;
         if (this.MP < 0) this.MP = 0;
         if (this.MP > MaxMP) this.MP = MaxMP;
+
+        //UI更新MP
+        God god = God.getInstance();
+        god.UI.set_player_MP(this.MP, this);
+
         return true; 
     }
 
@@ -264,11 +282,16 @@ public class Player : MonoBehaviour {
             CardStack.Pop();
             CardsInHand.Add(CardToDraw);
 
-            GameObject card = GameObject.Instantiate(CardToDraw.Value.CardModel, poscontainer.CardsPos[CardsInHand.Count], Quaternion.identity);
+            //创建手牌时使手牌面向镜头
+            GameObject card = GameObject.Instantiate(CardToDraw.Value.CardModel, poscontainer.CardsPos[CardsInHand.Count], Quaternion.Euler(90,180,0));
             CardsInHand_Obejct.Add(card);
             card.name = "HeroCard" + CardsInHand.Count.ToString();
             card.tag = "Card";
         }
+
+        //更新手卡UI
+        God god = God.getInstance();
+        god.UI.set_player_Cardnum(this.CardsInHand.Count, this);
     }
 
     public void GetCard(KeyValuePair<int, Card> CardToGet)
@@ -413,6 +436,12 @@ public class Player : MonoBehaviour {
                 HeroesOnCourt_Object.RemoveAt(index);
                 // 移除Hero
                 HeroesOnCourt.RemoveAt(index);
+
+
+                //移除信息UI
+                God god = God.getInstance();
+                god.UI.destroy_hero_info(hero);
+
                 break;
             }
         }

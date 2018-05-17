@@ -18,10 +18,15 @@ public class God : MonoBehaviour {
     public PosContainer redposcontainer;
     public PosContainer yellowposcontainer;
 
+    public UserInterface UI;
+
+
     // 回合计数器
     public int roundCount;
 
+
     int player_choice;
+
     int PlayerRound; // 0 —— 黄玩家操控回合
                      // 1 —— 红玩家操控回合
     /*
@@ -60,7 +65,14 @@ public class God : MonoBehaviour {
         targetSelectedState = new TargetSelectedState();
         cardCastedState = new CardCastedState();
         gameOverState = new GameOverState();
-        
+
+        //UI实例
+        UI = GameObject.Find("Canvas").GetComponent<UserInterface>();
+        UI.next_round.onClick.AddListener(delegate ()
+        {
+            ExchangeRound();
+        });
+
         // 设置初始状态
         currentState = prepareState;
         isFree = true;
@@ -108,6 +120,24 @@ public class God : MonoBehaviour {
             Debug.Log("第" + roundCount + "回合开始");
         }
 
+
+        //UI设置
+        UI.set_player_HP(playerred.HP, playerred);
+        UI.set_player_MP(playerred.MP, playerred);
+        UI.set_player_Cardnum(playerred.CardsInHand.Count, playerred);
+        UI.set_player_HP(playeryellow.HP, playeryellow);
+        UI.set_player_MP(playeryellow.MP, playeryellow);
+        UI.set_player_Cardnum(playeryellow.CardsInHand.Count, playeryellow);
+
+        // 开局选边扩展点
+        Debug.Log("黄色方先手");
+        PlayerRound = 0;
+        currentplayer = playeryellow;
+        currentoponent = playerred;
+        roundCount = 1;
+        Debug.Log("第" + roundCount + "回合开始");
+
+
         GameObject redcardslots = GameObject.Find("RedCardSlots");
         Transform[] rcs = redcardslots.GetComponentsInChildren<Transform>();
         GameObject yellowcardslots = GameObject.Find("YellowCardSlots");
@@ -140,7 +170,17 @@ public class God : MonoBehaviour {
         currentplayer.Shuffle();
         currentoponent.Shuffle();
         currentoponent.GetCard(new KeyValuePair<int, Card>(0, newcard));
+
+        CSVReader.GetInstance().loadFile(Application.dataPath + "/CardsConfigs", "卡组csv.csv"); // 读取存储卡牌描述的CSV文件
+        CardsManager.GetInstance().SetCardsData(CSVReader.GetInstance().arrayData); // 将读取到的数据传入卡牌管理器
+        CardsManager.GetInstance().InstansitateCards(); // 卡牌管理器根据读取的数据来实例化卡牌
+
+
+        currentplayer.Shuffle();
+        currentoponent.Shuffle();
+
         currentplayer.DrawCard();
+
     }
 
     public bool ExchangeRound()
@@ -163,13 +203,18 @@ public class God : MonoBehaviour {
             currentplayer = playeryellow;
             currentoponent = playerred;
             // 回合数+1
+
             if (player_choice == 0) // 黄方先手即红方结束，回合+1
             {
                 roundCount++;
             }
+
+            roundCount++;
+
             Debug.Log("第" + roundCount + "回合开始");
         }
         currentplayer.DrawCard();
+
         ClearSelect();
         return true;
     }
@@ -202,7 +247,11 @@ public class God : MonoBehaviour {
      */ 
     public bool isOver()
     {
+
         if (playerred.HP <= 0 || playeryellow.HP <= 0) return true;
+
+        if (playerred.HP == 0 || playeryellow.HP == 0) return true;
+
         return false;
     }
 
