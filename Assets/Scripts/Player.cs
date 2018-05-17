@@ -1,8 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+
+    const int num_of_cards = 19; // 设定卡组中的卡牌总数
+
     PosContainer poscontainer;
     public Hero SelectedHero1 = null;
     public Hero SelectedHero2 = null;
@@ -90,16 +93,37 @@ public class Player : MonoBehaviour {
         this.playerObject = gameObject;
     }
 
+
+
     /// <summary>
-    /// 假装洗牌：对局开始时由God为对阵双方洗牌（初始化双方的牌库）
+    /// 洗牌：对局开始时由God为对阵双方洗牌（初始化双方的牌库）
     /// </summary>
     public void Shuffle()
     {
-        Card FirstCard = new Card(CardsManager.GetInstance().CardsInGame[7]); // 酸性沼泽怪
+        int[] c = new int[num_of_cards];
+        for (int i = 0; i < num_of_cards; i++)
+        {
+            c[i] = i;
+        }
+        for (int i = 0; i < num_of_cards; i++)
+        {
+            int j = Random.Range(i, num_of_cards);
+            int temp = c[i];
+            c[i] = c[j];
+            c[j] = temp;
+        }
 
-        int times = 100;
-        while (times-- >= 0)
-            CardStack.Push(new KeyValuePair<int, Card>(100 - times, FirstCard));
+        Card FirstCard = new Card(CardsManager.GetInstance().CardsInGame[c[0]]);
+
+        for (int i = 1; i < num_of_cards; i++)
+        {
+            Card TempCard = new Card(CardsManager.GetInstance().CardsInGame[c[i]]); // 重排数组后，顺序填充卡牌就可以了
+            times = 100;
+            while (times-- >= 0)
+                CardStack.Push(new KeyValuePair<int, Card>(100 - times, TempCard));
+        }
+
+
     }
 
 
@@ -190,10 +214,12 @@ public class Player : MonoBehaviour {
         SummonedHero.name = "SummonedHero1";
         SummonedHero.tag = "Hero";
 
+
         //设置英雄信息UI
         God god = God.getInstance();
         god.UI.create_hero_info(hero.GetHp(), hero.GetDamage(), hero);
     }
+
 
 
     /// <summary>
@@ -207,9 +233,11 @@ public class Player : MonoBehaviour {
         if (this.HP < 0) this.HP = 0;
         if (this.HP > MaxHP) this.HP = MaxHP;
 
+
         //UI更新HP
         God god = God.getInstance();
         god.UI.set_player_HP(this.HP, this);
+
         return true;
     }
 
@@ -227,6 +255,7 @@ public class Player : MonoBehaviour {
         //UI更新MP
         God god = God.getInstance();
         god.UI.set_player_MP(this.MP, this);
+
         return true; 
     }
 
@@ -263,6 +292,17 @@ public class Player : MonoBehaviour {
         //更新手卡UI
         God god = God.getInstance();
         god.UI.set_player_Cardnum(this.CardsInHand.Count, this);
+    }
+
+    public void GetCard(KeyValuePair<int, Card> CardToGet)
+    {
+        Debug.Log("Get Card");
+        CardsInHand.Add(CardToGet);
+
+        GameObject card = GameObject.Instantiate(CardToGet.Value.CardModel, poscontainer.CardsPos[CardsInHand.Count], Quaternion.identity);
+        CardsInHand_Obejct.Add(card);
+        card.name = "EffectCard" + CardsInHand.Count.ToString();
+        card.tag = "Card";
     }
 
     /// <summary>
@@ -397,9 +437,11 @@ public class Player : MonoBehaviour {
                 // 移除Hero
                 HeroesOnCourt.RemoveAt(index);
 
+
                 //移除信息UI
                 God god = God.getInstance();
                 god.UI.destroy_hero_info(hero);
+
                 break;
             }
         }
