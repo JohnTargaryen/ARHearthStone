@@ -1,39 +1,31 @@
-## Welcome to GitHub Pages
+## ARHearthStone
 
-You can use the [editor on GitHub](https://github.com/JohnTargaryen/ARHearthStone/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## 游戏名称 ARHearthStone
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## 游戏简介
 
-### Markdown
+### 1.游戏背景
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+### 2.游戏规则
 
-# Header 1
-## Header 2
-### Header 3
+每一场对战都是1vs1采取轮流回合制。正常情况下玩家在轮到他的回合会抽两张卡片，并且根据手上的牌来决定要召唤手下、装备武器或者是施放法术等行为来应战。一场游戏可能会有两名玩家，抑或是一名玩家一名电脑，又或者是两名玩家和一名电脑。
 
-- Bulleted
-- List
+在每个回合的开始，玩家将会从他们的牌库（deck）中抽两张卡，而这些牌库必须在开始游戏前就建构好。玩家可以选择使用预设的牌库或者自订牌库来进行游戏。当玩家拥有大量该职业的特殊卡牌时，将更能够体认到游戏中各职业的独特魅力以及可能性。
 
-1. Numbered
-2. List
+在轮到该玩家的回合时，玩家将可以选择要打出卡牌、使用英雄技能、命令随从攻击，或者当他的英雄有攻击力时，也可以让英雄自己进行攻击；当然，也可以什么都不做便结束回合。然而，若要出牌或者使用英雄能力，必须花费一定的等同于该张牌左上角数字的法力水晶。在游戏的一开始双方玩家都会拥有一颗法力水晶，并且接下来逐回合增加四颗，直到拥有十颗。通常耗费较多法力水晶的牌也会拥有较强大的力量，例如较强壮的手下或者是较高伤害的法术牌。
 
-**Bold** and _Italic_ and `Code` text
+当其中一名玩家输掉的时候（有时双方会平局），就代表该局游戏结束了。
 
-[Link](url) and ![Image](src)
-```
+平局可能有三种情况，一是群体伤害让双方死亡，二是对局60回合系统判定双方落败，三是系统bug。竞技场内的平局不算失败。
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### 3.游戏展示
+GIF动画
 
-### Jekyll Themes
+视频展示
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/JohnTargaryen/ARHearthStone/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### 4.游戏亮点
 
-### Support or Contact
+### 5.团队简介
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
-
-###TestTest
+### 6.相关链接
