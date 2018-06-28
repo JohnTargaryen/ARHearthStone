@@ -54,13 +54,15 @@
 
 ## 游戏展示
 
-![对局初始]https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E5%AF%B9%E5%B1%80%E5%88%9D%E5%A7%8B.PNG
+![对局初始](https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E5%AF%B9%E5%B1%80%E5%88%9D%E5%A7%8B.PNG)
 
-![召唤英雄]https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E5%8F%AC%E5%94%A4%E8%8B%B1%E9%9B%84.PNG
+![召唤英雄](https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E5%8F%AC%E5%94%A4%E8%8B%B1%E9%9B%84.PNG)
 
-![游戏结束]https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E6%B8%B8%E6%88%8F%E7%BB%93%E6%9D%9F.PNG
+![游戏结束](https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E6%B8%B8%E6%88%8F%E7%BB%93%E6%9D%9F.PNG)
 
-![英雄攻击]https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E8%8B%B1%E9%9B%84%E6%94%BB%E5%87%BB.PNG
+![英雄攻击](https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E8%8B%B1%E9%9B%84%E6%94%BB%E5%87%BB.PNG)
+
+![](https://github.com/JohnTargaryen/ARHearthStone/blob/master/%E5%8F%AC%E5%94%A4%E8%8B%B1%E9%9B%84gif.gif)
 
 ## 游戏亮点
 
@@ -83,7 +85,7 @@
 
 ## 相关链接
 游戏设计需求文档：https://github.com/JohnTargaryen/ARHearthStone/issues/2
-![游戏逻辑]https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E6%B8%B8%E6%88%8F%E5%AF%B9%E5%B1%80%E9%80%BB%E8%BE%91%E5%AF%B9%E8%B1%A1.PNG
+![游戏逻辑](https://raw.githubusercontent.com/JohnTargaryen/ARHearthStone/master/%E6%B8%B8%E6%88%8F%E5%AF%B9%E5%B1%80%E9%80%BB%E8%BE%91%E5%AF%B9%E8%B1%A1.PNG)
 
 游戏下载链接: https://pan.baidu.com/s/1UDdTxDx9Ux5jg9MnWhXY0g 密码: whbn
 
